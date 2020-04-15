@@ -2,12 +2,13 @@
 #TAMAÑO DE MUESTRA PARA EL MUESTREO ALEATORIO SIMPLE
 #CONSIDERE LA MEDIA , EL MARGEN DE ERROR RELATIVO Y COEFICIENTES
 #DE CONFIANZA
+rm(list = ls())
 calc_muestra<-function(dv,N,cc){
   #dv: DATOS DE LA VARIABLE
   #N: tamaño de la poblacion
   #cc:coefiente de confianza en porcentaje
-  media<-mean(dv)
   n<-nrow(dv)
+  media<-sum(dv)/n
   s2<-var(dv)
   f<-n/N
   var_med<-(1-f)*s2/n
@@ -21,5 +22,16 @@ calc_muestra<-function(dv,N,cc){
   #error relativo
   erel<-k*sqrt(var_med)/media
   
+  v<-(k^2*var(dv)/erel^2*media)/(1+(k^2*var(dv))/(erel^2*media^2*N))
+ 
+   return(v)
 }
+x<-rnorm(60,5,2)
+x
+y<-as.data.frame(x)
+y
+sum(y)/nrow(y)
+calc_muestra(y,100,96)
+calc_muestra(y,100000000000000,1)
+var(y)
 
