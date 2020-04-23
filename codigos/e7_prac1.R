@@ -12,8 +12,7 @@ while (i<=96) {
   j=j+1
 } 
 barplot(aux)
-?barplot
-?plot
+
 
 names(bdc_22abr)
 fechas<-c(names(bdc_22abr)[5:96])
@@ -30,9 +29,13 @@ i=6
 j=2
 aux2<-NULL
 while (i<=96) {
-  aux2[j]=sum(bdc_22abr[,i]-sum(bdc_22abr[,i-1])
+  aux2[j]=sum(bdc_22abr[,i])-sum(bdc_22abr[,i-1])
   i=i+1
   j=j+1
 } 
-g=3
-g
+aux2[1]=sum(bdc_22abr[,5])
+aux2
+
+barplot(aux2,type="l",col="red",xlab = "desde el 22 ene al 22 abr",
+     ylab = "numero de infectados",main = "numero de infectados por dia ",)
+?plot
