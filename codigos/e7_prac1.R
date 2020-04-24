@@ -37,5 +37,8 @@ aux2[1]=sum(bdc_22abr[,5])
 aux2
 
 barplot(aux2,type="l",col="red",xlab = "desde el 22 ene al 22 abr",
-     ylab = "numero de infectados",main = "numero de infectados por dia ",)
-?plot
+     ylab = "numero de infectados",main = "numero de infectados por dia ",)plot(aux2,type="l",col="red",xlab = "desde el 22 ene al 22 abr",
+        ylab = "numero de infectados",main = "numero de infectados por dia ",)
+
+?abline
+     
