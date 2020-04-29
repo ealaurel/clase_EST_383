@@ -4,6 +4,7 @@
 #bdc=confirmados
 #bdr=recuperaods
 #bdd=muertos
+rm(list = ls())
 bdc<-read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv",sep = ",")
 bdr<-read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv",sep = ",")
 bdd<-read.csv("https://github.com/CSSEGISandData/COVID-19/raw/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv",sep = ",")
@@ -73,3 +74,4 @@ points(td2,col="blue",type="l",xlab = "desde el 22 ene a la fecha",
         ylab = "numero de muertes",main = "muertes por dia ")
 legend(x = "left", legend = c("confirmados", "recuperados","muertes"),
        fill = c("red", "green","blue"))
+
