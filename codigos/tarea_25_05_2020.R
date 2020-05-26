@@ -1,0 +1,7 @@
+rm(list= ls()
+install.packages("xml2")
+library(xml2)
+library(rvest)
+ww<-read_html("https://www.worldometers.info/coronavirus/")
+node0<-html_nodes(ww,"td , .sorting")
+node1<-html_table(ww,"td , .sorting")
