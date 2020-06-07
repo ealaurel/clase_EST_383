@@ -15,7 +15,7 @@ shinyUI(fluidPage(
                         min = 1,
                         max = 50,
                         value = 30),
-            radioButtons("b2","distribucion",choices = c(normal,uniforme,binomial)),
+            radioButtons("b2","distribucion",choices = c(normal,uniforme,binomial))
         ),
 
         # Show a plot of the generated distribution
