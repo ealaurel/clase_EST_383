@@ -1,0 +1,85 @@
+---
+title: "big_data_en_R"
+author: "ENRIQUE"
+date: "13/7/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Transformacion y agregación de datos con la librería ff y ffbase 
+
+```{r,eval=F}
+#install.packages("ff")
+#install.packages("ffbase")
+#install.packages("ffbase2") / github
+```
+
+```{r,eval=FALSE}
+rm(list = ls())
+library(ff)
+library(ffbase)
+setwd("C:\\Users\\Dell\\Documents\\GitHub\\clase_EST_383\\bd_mx")
+bd1<-read.csv("200713COVID19MEXICO.csv",sep=",",header=T)
+object.size(bd1)
+head(bd1)
+#paso 1: tener un directorio para archivos temporales de ff
+#crea una carpeta en el directorio desde el R, puedo hacerlo directo en el directorio
+system("mkdir ffdf")
+#paso 2: definir la carpeta temporal
+options(fftempdir="C:\\Users\\Dell\\Documents\\GitHub\\clase_EST_383\\bd_mx\\ffdf")
+#paso 3: Cargar la base de datos
+bd2<-read.csv.ffdf(file="200713COVID19MEXICO.csv",sep=",",header=T,
+                   next.rows=100000,colClasses=NA,VERBOSE=F)
+bd3<-read.csv.ffdf(file="200713COVID19MEXICO.csv",sep=",",header=T,
+                   first.rows=-1,colClasses=NA,VERBOSE=T)
+bd4<-read.csv.ffdf(file="200713COVID19MEXICO.csv",sep=",",header=T,
+                   next.rows=1000,colClasses=NA,VERBOSE=T)
+
+object.size(bd1)/1000000 # CSV DE R
+object.size(bd2)/1000000 # CSV.FFDF 100000
+object.size(bd3)/1000000 # CSV.FFDF TODO
+object.size(bd4)/1000000 # CSV.FFDF 1000
+
+#USO DE LAS FFDF
+table(bd2$SEXO)
+barplot(table(bd2$SEXO))
+#install.packages("tictoc")
+library(tictoc)
+tic("R")
+table(bd1$SEXO)
+toc()
+
+tic("ffdf")
+table(bd2$SEXO)
+toc()
+
+tic("ffdf table")
+table.ff(bd2$SEXO)
+toc()
+
+#R: 1 G -> 
+#FFDF: 200 M -> 
+class(bd1)
+class(bd2)
+bd5<-as.data.frame.ffdf(bd2)
+library(Hmisc)
+describe(bd1)
+describe(bd5)
+object.size(bd5)
+object.size(bd1)
+object.size(bd2)
+```
+
+
+### Modelogs GLM con la las librerias ff y ffbase
+
+### Expandiendo la memoria con la libreria bigmemory
+
+## Parallel R
+
+## Ejercicios Propuestos

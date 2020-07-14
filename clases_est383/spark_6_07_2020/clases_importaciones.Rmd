@@ -1,0 +1,62 @@
+---
+title: "r"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+#cargadno al base de datos
+rm(list=ls())
+setwd("C:\\Users\\Dell\\Downloads\\importaciones_csv")
+## de excel a csv
+#install.packages("readxl")
+#library(readxl)
+#for(i in 2018:2019){
+ # bd<-read_excel(paste0("Importaciones ",i,".xlsx"))
+  #write.csv(bd,file=paste0("C:\\Users\\Dell\\Downloads\\bd ine importaciones_csv",i,".csv"))
+  #rm(bd)
+#}
+#desde el csv cargando los datos al r
+
+```
+
+
+```{r}
+library(sparklyr)
+#spark_install()
+spark_installed_versions()
+```
+
+
+```{r}
+#inicio de sesion
+sc<-spark_connect( master = "local", version = "2.4.3")
+sp_importaciones<-spark_read_csv(sc,
+                                 name = "importaciones",
+                                 path = "C:\\Users\\Dell\\Downloads\\importaciones_csv")
+spark_disconnect(sc)
+conf<-spark_config()
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
