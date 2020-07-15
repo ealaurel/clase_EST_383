@@ -88,7 +88,7 @@ bd2df<-as.data.frame.ffdf(bd2)
 object.size(bd2df)
 
 bd2df %>% group_by(PAIS_NACIONALIDAD,SEXO) %>% summarise(mean(EDAD))
-
+#comando del doBy como el dplyr
 summaryBy(EDAD~PAIS_NACIONALIDAD+SEXO,FUN=mean,data=bd1)
 
 summaryBy(EDAD~PAIS_NACIONALIDAD+SEXO,FUN=mean,data=bd2df)
@@ -157,9 +157,10 @@ summary(model3)
 
 ```{r,eval=F}
 rm(list=ls())
+#install.packages("bigmemory")
 library(bigmemory)
 #limitación de bigmemory, todos los variables de la base de datos de interés deben ser numéricas.
-load("C:\\Users\\ALVARO\\Documents\\GitHub\\EST-383\\data\\oct20.RData")
+load("C:\\Users\\Dell\\Documents\\GitHub\\EST-383\\data\\oct20.RData")
 bd1<-computo[,13:25]
 str(bd1)
 object.size(bd1)/10^6
@@ -187,6 +188,8 @@ names(bd2)
 dimnames(bd2)
 lm(CC~MNR,data=bd2)
 
+#install.packages("bigtabulate")
+#install.packages("bigstatsr")
 library(bigtabulate)
 library(biganalytics)
 library(biglm)
@@ -246,7 +249,7 @@ teval(colmean(mbm))
 
 teval(apply(mr,2,mean))
 teval(apply(mbm,2,mean))
-teval(apply(mff,2,mean))
+teval(apply(mff,2,mean))#no se puede
 
 resul<-list()
 teval(
@@ -256,11 +259,11 @@ for(i in 1:ncol(mff)){
 )
 teval(sapply(mff,mean))
 
-
+#calcular algo condicionado a otra variable tapply
 teval(tapply(mr[,1], mr[,11], mean))
 teval(tapply(mbm[,1], mbm[,11], mean))
-teval(tapply(mff[[1]], mff[[11]], mean.ff))
-
+teval(tapply(mff[[1]], mff[[11]], mean.ff))#no puede calcular
+#simulo el tapply con el aiguiente codigo
 aux<-matrix(NA,6,10)
 teval(
 for(i in 1:10){
@@ -269,6 +272,7 @@ for(i in 1:10){
   }  
 }
 )
+aux
 ```
 
 ### Libreria parallel
@@ -283,6 +287,7 @@ Workstations). La primera descontinuada y la segunda limitada.
   
 ```{r,eval=F}
 library(parallel)
+#install.packages("snow")
 library(snow)
 #funciones propias 
 mclapply()#no funciona completamente en windows
@@ -292,9 +297,9 @@ library(help=snow)
 #viendo los cores disponibles
 detectCores()
 #definiendo un cluster de trabajo
-#SOCK usa Rscript para lanzar más copias de R (en el mismo host u opcionalmente en otro lugar)
+#SOCK usa Rscript para lanzar más copias de R (en el mismo host u opcionalmente en otro lugar)(internamente)
 #FORK makeForkCluster bifurca a los trabajadores en el host actual (que hereda el entorno de la sesión actual)  (NO WINDOWS)
-
+#bifurcar: el trabajo lo reparte a los cores
 cl <- makeCluster(3, type = "SOCK")
 stopCluster(cl)
 
